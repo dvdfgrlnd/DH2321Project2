@@ -1,0 +1,23 @@
+{
+  "name": "project2",
+  "version": "0.0.1",
+  "description": "Project 2 in DH2321",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheStigsGitCousin/DH2321Project2.git"
+  },
+  "author": "David Fagerlund",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheStigsGitCousin/DH2321Project2/issues"
+  },
+  "homepage": "https://github.com/TheStigsGitCousin/DH2321Project2#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
