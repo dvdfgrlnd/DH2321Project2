@@ -4,13 +4,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style.css">
         <!--<link rel="stylesheet" type="text/css" href="parallelstyle.css">-->
-        <script src="//d3js.org/d3.v3.min.js"></script>
+        <script src="globals.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
         <script src="http://d3js.org/topojson.v0.min.js"></script>
 </head>
     <body>
         <!--<svg id="maincanvas"></svg>-->
-        <input type="range" min="0" max="4" step="1" oninput="updatechart(this)" value="0"/>
-        
+        <input type="range" min="0" max="4" step="1" oninput="updateBarChart(this)" value="0"/>
+        <div id="maindiv"></div>
         <script src="colors.js"></script>
         <!--<script src="maps.js"></script>-->
         <!--<script src="parallelcoord.js"></script>-->
