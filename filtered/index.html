@@ -10,8 +10,11 @@
 </head>
     <body>
         <!--<svg id="maincanvas"></svg>-->
-        <label>Time</label>
-        <input type="range" min="0" max="4" step="1" oninput="updateBarChart(this)" value="4"/>
+        <div>
+            <label>Time</label>
+            <input type="range" min="0" max="4" step="1" oninput="updateBarChart(this)" value="4"/>
+            <p id="statusField"></p>
+        </div>
         <div id="maindiv"></div>
         <script src="colors.js"></script>
         <!--<script src="maps.js"></script>-->

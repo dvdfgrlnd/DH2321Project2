@@ -1,4 +1,3 @@
-/* global generateColors */
 /* global d3 */
 var margin = {top: 30, right: 40, bottom: 30, left: 70};
 var canvas=d3.select('#maindiv').append('svg')
@@ -8,7 +7,7 @@ var canvas=d3.select('#maindiv').append('svg')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 var radarPadding=300;
 var radius=80,
-    maxPercent=0.4;
+    maxPercent=40;
 var mainWidth=parseInt(d3.select("svg").style('width'), 10)
             - margin.left - margin.right;
 var width=mainWidth-radarPadding-radius;
@@ -75,7 +74,10 @@ canvas.append('g')
             updateContextMenu(node);
         } 
     })        
-    .on("contextmenu", function (node) { copyCircle(this, node); })        
+    .on("contextmenu", function (node) { 
+        d3.event.preventDefault();
+        copyCircle(this, node);
+    })        
     .on("click", function (node) { selectCircle(this, node); });        
     
 xScale.domain([d3.min(gdpGrowth, (d)=>{
@@ -149,12 +151,39 @@ function selectCircle(circle, node){
 
 function copyCircle(circle, node){
     var selection=d3.select(circle);
-    canvas.append('circle')
+    var id='id1';
+    var copy=canvas.append('g')
         .attr('transform', selection.attr('transform'))
+        .datum(node)
+        .on('click', function (data){ 
+            d3.select(this).remove();
+        });
+    copy.append('circle')
         .attr('r', selection.attr('r'))
         .attr('cx', selection.attr('cx'))
         .attr('cy', selection.attr('cy'))
-        .style('fill', selection.style('fill'));
+        .attr('id', id)
+        .style('opacity', 0.5)
+        .style('fill', selection.style('fill'))
+        .on("mouseover", function (node) { 
+            if(!isNaN(node.index) && selectedNode===null) {
+                updateRadarChart(node);
+                updateContextMenu(node);
+            }
+        });
+    copy.append('text')
+        .text((d)=>{return d.year})
+        .attr('x', selection.attr('cx'))
+        .style('font-size', 12)
+        .attr('y', selection.attr('cy'))
+        .attr('text-anchor', 'middle');
+    // Show a label with 'Copied!'
+    d3.select('#statusField')
+        .transition()
+        .duration(2000)
+        .text('Copied!')
+        .style('display', 'inline')
+        .each('end', function(){ d3.select('#statusField').style('display', 'none'); });
 }
 
 function createIndex(countries, year){
@@ -162,7 +191,7 @@ function createIndex(countries, year){
                 var list={};
                 var growth=gdpGrowth.filter((d)=>{ return d.country===c.name;}).shift()[year];
                 var i=questions.reduce((prev, d, i)=>{ 
-                    list[d]=(+c.values[d][year]);
+                    list[d]=100*(+c.values[d][year]);
                     return prev+=((i-(questions.length/2))*(+c.values[d][year])); }, 0);
                 // if(c.name==='china')
                 //     console.log(i);
@@ -233,7 +262,7 @@ function updateContextMenu(data){
         .attr('class', 'context')
         .attr('transform', (d, i)=>{ return 'translate('+(mainWidth-220)+','+(30*(i))+')';});
     text.transition()
-        .text((d)=>{return d+' - '+((values[d]===undefined || values[d]===null)?'':(values[d].toFixed(2)+' %')); });
+        .text((d)=>{return d+' = '+((values[d]===undefined || values[d]===null)?'':(values[d].toFixed(2)+' %')); });
 }
 
 function createRadarChart(offset) {
@@ -262,15 +291,15 @@ function createRadarChart(offset) {
          .append("path")
          .attr("d", function (d) { return line([d[0], d[1]]); })
          .style("stroke", "gray");
-    
+    var labelFactor=1.25;
     // Create the circles at the end of the lines, that represents the different keys ("questions")
     chart.append("g").selectAll(".typeCircle")
          .data(lines)
          .enter()
          .append("text")
          .text(function(d){ return d[2];})
-         .attr("transform", function (d, i) { return 'translate('+radarScale(d[1].x)+','+radarScale(d[1].y)+')'; })
-         .attr('dy', '1em')
+         
+         .attr("transform", function (d, i) { return 'translate('+radarScale(d[1].x*labelFactor)+','+radarScale(d[1].y*labelFactor)+')'; })
          .attr("stroke-width", 3);
     // Draw the lines for the radar surface
     chart.append("g")
