@@ -109,25 +109,6 @@ canvas.append("g")
     .style("text-anchor", "end")
     .text("Country");
     
-    var legend = canvas.selectAll(".legend")
-    .data(Object.keys(colors))
-.enter().append("g")
-    .attr("class", "legend")
-    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-legend.append("rect")
-    .attr("x", width - 8)
-    .attr("width", 18)
-    .attr("height", 18)
-    .style("fill", (d)=>{ return colors[d];});
-
-legend.append("text")
-    .attr("x", width - 14)
-    .attr("y", 9)
-    .attr("dy", ".35em")
-    .style("text-anchor", "end")
-    .text(function(d) { return d; });
-    
     updateBarChart(d3.select('input').node());
     updateContextMenu({values:[]});
     createRadarChart({x:(mainWidth-radarPadding), y:420});

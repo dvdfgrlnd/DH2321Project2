@@ -2,9 +2,17 @@ html, body { height: 100%; width: 100%; margin: 0; }
 body{
     margin: 20px;
 }
-#maindiv {
+.description{
+    float: left;
+    left: 10%;
+    margin-left: 10%;
+}
+.descriptionDiv{
+}
+.content {
     width: 100%;
     height: 95%;
+    clear: left;
 }
 #statusField{
     display: none;
