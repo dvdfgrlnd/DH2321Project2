@@ -1,0 +1,13 @@
+body {
+    width: 90%;
+    margin-left: 3%;
+}
+
+p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+}
+img {
+    margin-left: 3%;
+}
