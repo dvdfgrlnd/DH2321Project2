@@ -11,16 +11,32 @@
     <body>
         <!--<svg id="maincanvas"></svg>-->
         <div class="descriptionDiv">
-            <p class="description">The 
+            <p class="maindescription">This tool is used to enhance the exploration of 
+                each continents largest country (in terms of GDP) and the correlation 
+                between GDP growth and the populations attitude towards private and 
+                state ownership of business.
             </p>
-            <p class="description">
-                Selection - click<br>
-                sdf
-            </p>
+            <div class="description">
+                <ul>
+                    <li>Countries on y-axis</li>
+                    <li>GDP growth (percent) on the x-axis</li> 
+                    <li>Circle size indicate attitude (small circle -> increased private ownership)</li>
+                    <li>Black circle indicate no data avaible</li>
+                    <li>Click circle to select</li>
+                </ul>
+            </div>
+            <div class="description">
+                <ul >
+                    <li>Right click circle to create a static copy of a circle</li>
+                    <li>Click static copy to remove the circle</li>
+                    <li>Drag the slider to change year</li>
+                    <li>Hover over a circle to show details</li>
+                </ul>
+            </div>
         </div>
         <div class="content">
             <div>
-                <label>Time</label>
+                <label>Year</label>
                 <input type="range" min="0" max="4" step="1" oninput="updateBarChart(this)" value="4"/>
                 <p id="statusField"></p>
             </div>

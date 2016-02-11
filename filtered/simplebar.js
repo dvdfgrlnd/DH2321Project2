@@ -139,6 +139,12 @@ function copyCircle(circle, node){
         .on('click', function (data){ 
             d3.select(this).remove();
         });
+    copy.append('text')
+        .text((d)=>{return d.year})
+        .attr('x', selection.attr('cx'))
+        .style('font-size', 12)
+        .attr('y', selection.attr('cy'))
+        .attr('text-anchor', 'middle');
     copy.append('circle')
         .attr('r', selection.attr('r'))
         .attr('cx', selection.attr('cx'))
@@ -152,12 +158,6 @@ function copyCircle(circle, node){
                 updateContextMenu(node);
             }
         });
-    copy.append('text')
-        .text((d)=>{return d.year})
-        .attr('x', selection.attr('cx'))
-        .style('font-size', 12)
-        .attr('y', selection.attr('cy'))
-        .attr('text-anchor', 'middle');
     // Show a label with 'Copied!'
     d3.select('#statusField')
         .transition()
@@ -200,7 +200,7 @@ function updateRadarChart(data){
     d3.select('#'+id)
             .transition()
             .attr("d", this.line)
-            .duration(1000)
+            .duration(700)
             .ease("linear")
             .attr("transform", null);
 }
@@ -213,8 +213,6 @@ function updateBarChart(obj){
     var year=years[years.length-1-obj.value];
     var change=createIndex(countries, year);
     rScale.rangeRound([20, yScale.rangeBand()/2]);
-    // rScale.domain(d3.extent(change, (d)=>{return d.index; }));
-    // console.log(rScale.domain());
     canvas.selectAll('.countryindex')
         .data(change)
         .transition()
